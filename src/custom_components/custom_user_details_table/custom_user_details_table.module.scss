@@ -1,0 +1,46 @@
+.detailstable{
+  box-shadow: -3px 6px 8px 3px rgba(128, 128, 128, 0.537);
+  background-color: #fff;
+  border-radius: 12px;  
+  padding: 10px 0 ;
+  height: 50vh;
+  width: 100%;
+  .title{    
+    display: flex;    
+    justify-content: center;
+    h5{
+      font-size: 28px;
+      font-weight: 400;
+      margin: 10px 0;
+    }
+  }
+  table{
+    width: 100%;    
+    overflow-y: auto;
+    border-collapse: collapse;
+    thead{
+      tr{
+        .addBorder{
+          border-bottom: 1px solid black;
+          border-top: 1px solid black;
+        }
+      }
+    }
+    tbody{
+      
+      tr{
+        cursor: pointer;
+        vertical-align: top;
+        td{
+          padding: 6px 8px;
+        }
+      }
+      .selectedRow{
+        background-color: #d3d3d3;        
+      }
+    }
+  }
+}
+.userCard{
+  width: 100%;
+}

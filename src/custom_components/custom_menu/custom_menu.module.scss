@@ -1,0 +1,11 @@
+.menuContainer{
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    .items{
+        display: flex;
+        flex-direction: column;
+
+    }
+}
