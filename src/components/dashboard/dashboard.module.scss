@@ -1,12 +1,7 @@
 .dashboardContainer {
     width: 75%;
-    // padding: 20px 30px;
-    background-color: aquamarine;
     height: calc(100vh - 0px);
-    // background-color: #F2F2E7 ,
-    background-color: #CEDDDC;
-
-    // gradient #CEDDDC, #E6EFF8
+    background: linear-gradient(#F2F2E7, #CEDDDC, #E6EFF8);
     h1 {
         margin: 20px 40px;
     }

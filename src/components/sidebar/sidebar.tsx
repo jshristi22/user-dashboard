@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CustomMenu from "../../custom_components/custom_menu/custom_menu";
-import { getMenuData } from "../../data_fetching_apis/data";
+import { getMenuData } from "../../data/data";
 import styles from "./sidebar.module.scss";
 
 interface IMenuItem {
@@ -15,9 +15,11 @@ function Sidebar() {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const data = await getMenuData();
+    const response = await getMenuData();
     const menuList: IMenuItem = {};
-    data?.data?.forEach((ele: any) => {
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    response?.data?.forEach((ele:any) => {
       if (menuList[ele?.menuGroupName]) {
         menuList[ele?.menuGroupName].menuItems?.push(ele?.menuItemName);
       } else {
@@ -39,7 +41,7 @@ function Sidebar() {
             label: key,
             menuItems: [...(menuData[key].menuItems ?? [])],
           };
-          return <CustomMenu menuData={menu} />;
+          return <CustomMenu key={key} menuData={menu} />;
         })}
       </div>
     </div>

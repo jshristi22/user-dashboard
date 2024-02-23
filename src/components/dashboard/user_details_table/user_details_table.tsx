@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import CustomButton from "../custom_button/custom_button";
-import styles from "./custom_user_details_table.module.scss";
-import { getAllUsers } from "../../data_fetching_apis/data";
+import CustomButton from "../../../custom_components/custom_button/custom_button";
+import { getAllUsers } from "../../../data/data";
 import UserDetailsCard from "../user_details_card/user_details_card";
+import styles from "./user_details_table.module.scss";
 
 const tableHeaderLabel = ["ID", "First Name", "Middle Name", "Last Name"];
 
@@ -14,26 +14,29 @@ export interface IUserData {
   userId?: number;
 }
 
-function CustomUserDetailsTable() {
+function UserDetailsTable() {
   const [isAllUserClosed, setIsAllUserClosed] = useState(false);
   const [allUserData, setAllUserData] = useState<IUserData[]>([]);
-  const [selectedUserId, setSelectedUserId] = useState<number|null>()
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData = async () => {    
-    const users = await getAllUsers();    
+  const fetchData = async () => {
+    const users = await getAllUsers();
     setAllUserData([...users.data]);
   };
 
-  const onRowClick = (ele:IUserData) => {
-    setSelectedUserId(ele.userId)
+  const onRowClick = (ele: IUserData) => {
+    setSelectedUserId(ele.userId!);
   };
   if (isAllUserClosed && selectedUserId !== null) {
     return (
       <div className={styles.userCard}>
-        <UserDetailsCard userId={selectedUserId!} OnIsAllUserClosed={setIsAllUserClosed} />
+        <UserDetailsCard
+          userId={selectedUserId!}
+          OnIsAllUserClosed={setIsAllUserClosed}
+        />
       </div>
     );
   }
@@ -48,25 +51,34 @@ function CustomUserDetailsTable() {
           <thead>
             <tr>
               {tableHeaderLabel.map((label: string) => (
-                <th className={styles.addBorder}>{label}</th>
+                <th key={label} className={styles.addBorder}>
+                  {label}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {allUserData.map((ele) => {
               return (
-                <tr className={`${selectedUserId === ele.userId ? styles.selectedRow:''}`} key={ele.userId} onClick={() => onRowClick(ele)}>
+                <tr
+                  className={`${
+                    selectedUserId === ele.userId ? styles.selectedRow : ""
+                  }`}
+                  key={ele.userId}
+                  onClick={() => onRowClick(ele)}
+                >
                   <td align="center">{ele.userId}</td>
-                  <td align="center">{ele.firstName ?? '-'}</td>
-                  <td align="center">{ele.middleName ?? '-'}</td>
-                  <td align="center">{ele.lastName ?? '-'}</td>
+                  <td align="center">{ele.firstName ?? "-"}</td>
+                  <td align="center">{ele.middleName ?? "-"}</td>
+                  <td align="center">{ele.lastName ?? "-"}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-      </div>
+      </div>      
       <CustomButton
+        disable={selectedUserId === null}
         onClick={() => setIsAllUserClosed(true)}
         label={"Show Details"}
       />
@@ -74,4 +86,4 @@ function CustomUserDetailsTable() {
   );
 }
 
-export default CustomUserDetailsTable;
+export default UserDetailsTable;

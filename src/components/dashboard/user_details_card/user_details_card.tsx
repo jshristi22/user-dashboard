@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import CustomButton from "../custom_button/custom_button";
+import CustomButton from "../../../custom_components/custom_button/custom_button";
+import { getUserDetails } from "../../../data/data";
+import { IUserData } from "../user_details_table/user_details_table";
 import styles from "./user_details_card.module.scss";
-import { getUserDetails } from "../../data_fetching_apis/data";
-import { IUserData } from "../custom_user_details_table/custom_user_details_table";
+
 interface IProps {
   OnIsAllUserClosed: (e: boolean) => void;
   userId: number;

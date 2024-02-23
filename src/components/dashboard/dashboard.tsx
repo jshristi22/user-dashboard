@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import CustomUserDetailsTable from "../../custom_components/custom_user_details_table/custom_user_details_table";
+import UserDetailsTable from "./user_details_table/user_details_table";
 import styles from "./dashboard.module.scss";
-import { getDashboardNumber } from "../../data_fetching_apis/data";
+import { getDashboardNumber } from "../../data/data";
 
 function Dashboard() {
   const [dashboardNumber, setDashboardNumber] = useState<string>("");
@@ -19,7 +19,7 @@ function Dashboard() {
     <div className={styles.dashboardContainer}>
       <h1>{dashboardNumber ?? 0}</h1>
       <div className={styles.userDetailContainer}>
-        <CustomUserDetailsTable />
+        <UserDetailsTable />
       </div>
     </div>
   );

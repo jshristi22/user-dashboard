@@ -1,6 +1,6 @@
 
 import styles from './App.module.scss';
-import Sidebar from './components/sidebard/sidebar'
+import Sidebar from './components/sidebar/sidebar'
 import Dashboard from './components/dashboard/dashboard'
 
 function App() {

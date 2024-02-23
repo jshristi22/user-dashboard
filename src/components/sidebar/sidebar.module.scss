@@ -1,17 +1,23 @@
-.sidebarContainer{
+.sidebarContainer {
     width: 25%;
     color: #fff;
     background-color: #132332;
-    height: calc(100vh  - 0px);
+    height: calc(100vh - 0px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    hr{
+
+    h1 {
+        font-weight: 400;
+    }
+
+    hr {
         width: 100%;
     }
-    .menuContainer{
+
+    .menuContainer {
         margin: 20px auto;
-width: fit-content;
+        width: fit-content;
     }
 
 }
