@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import CustomButton from "../../../custom_components/custom_button/custom_button";
 import { getAllUsers } from "../../../data/data";
@@ -16,6 +17,7 @@ export interface IUserData {
 
 function UserDetailsTable() {
   const [isAllUserClosed, setIsAllUserClosed] = useState(false);
+  const [error, setError] = useState<string|null>(null);
   const [allUserData, setAllUserData] = useState<IUserData[]>([]);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
@@ -24,8 +26,12 @@ function UserDetailsTable() {
   }, []);
 
   const fetchData = async () => {
-    const users = await getAllUsers();
-    setAllUserData([...users.data]);
+    try {
+      const users = await getAllUsers();
+      setAllUserData([...users.data]);
+    } catch (error: any) {
+      setError(error?.message as string);
+    }
   };
 
   const onRowClick = (ele: IUserData) => {
@@ -59,26 +65,30 @@ function UserDetailsTable() {
               ))}
             </tr>
           </thead>
-          <tbody>
-            {allUserData.map((ele) => {
-              return (
-                <tr
-                  className={`${
-                    selectedUserId === ele.userId ? styles.selectedRow : ""
-                  }`}
-                  key={ele.userId}
-                  onClick={() => onRowClick(ele)}
-                >
-                  <td align="center">{ele.userId}</td>
-                  <td align="center">{ele.firstName ?? "-"}</td>
-                  <td align="center">{ele.middleName ?? "-"}</td>
-                  <td align="center">{ele.lastName ?? "-"}</td>
-                </tr>
-              );
-            })}
-          </tbody>
+          {error ? (
+            <p className="error">{error}</p>
+          ) : (
+            <tbody>
+              {allUserData.map((ele) => {
+                return (
+                  <tr
+                    className={`${
+                      selectedUserId === ele.userId ? styles.selectedRow : ""
+                    }`}
+                    key={ele.userId}
+                    onClick={() => onRowClick(ele)}
+                  >
+                    <td align="center">{ele.userId}</td>
+                    <td align="center">{ele.firstName ?? "-"}</td>
+                    <td align="center">{ele.middleName ?? "-"}</td>
+                    <td align="center">{ele.lastName ?? "-"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          )}
         </table>
-      </div>      
+      </div>
       <CustomButton
         disable={selectedUserId === null}
         onClick={() => setIsAllUserClosed(true)}

@@ -11,8 +11,12 @@ function Dashboard() {
   }, []);
 
   const fetchData = async () => {
-    const number = await getDashboardNumber();
-    setDashboardNumber(number.data.dashboardNumber);
+    try {
+      const number = await getDashboardNumber();
+      setDashboardNumber(number?.data?.dashboardNumber);
+    } catch (error) {
+      setDashboardNumber("Dashboard- 0");
+    }
   };
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from "react";
 import CustomButton from "../../../custom_components/custom_button/custom_button";
 import { getUserDetails } from "../../../data/data";
@@ -11,6 +12,7 @@ interface IProps {
 
 function UserDetailsCard({ OnIsAllUserClosed, userId }: IProps) {
   const [userDetails, setUserDetails] = useState<IUserData>({});
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const data = localStorage.getItem(userId.toString());
@@ -23,9 +25,13 @@ function UserDetailsCard({ OnIsAllUserClosed, userId }: IProps) {
   }, [userId]);
 
   const fetchData = async () => {
-    const details = await getUserDetails(userId);
-    setUserDetails(details.data);
-    localStorage.setItem(userId.toString(), JSON.stringify(details.data));
+    try {
+      const details = await getUserDetails(userId);
+      setUserDetails(details.data);
+      localStorage.setItem(userId.toString(), JSON.stringify(details.data));
+    } catch (error: any) {
+      setError(error.message);
+    }
   };
 
   const getFullName = useMemo(() => {
@@ -46,7 +52,9 @@ function UserDetailsCard({ OnIsAllUserClosed, userId }: IProps) {
         label="<- All Users"
         onClick={() => OnIsAllUserClosed(false)}
       />
-      {userDetails && (
+      {error ? (
+        <p className="error">{error}</p>
+      ) : (
         <div className={styles.card}>
           <div className={styles.titles}>
             <h4>User ID</h4>
