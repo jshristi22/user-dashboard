@@ -1,4 +1,5 @@
 import styles from "./custom_button.module.scss";
+
 function CustomButton({
   onClick,
   label,
@@ -9,9 +10,13 @@ function CustomButton({
   disable?: boolean;
 }) {
   return (
-    <div className={styles.buttonDiv}>
-      <button onClick={onClick} disabled={disable}>{label}</button>
-    </div>
+    <button
+      className={styles.customButton}
+      onClick={onClick}
+      disabled={disable}
+    >
+      {label}
+    </button>
   );
 }
 

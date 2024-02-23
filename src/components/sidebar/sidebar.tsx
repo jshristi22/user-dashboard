@@ -8,18 +8,20 @@ interface IMenuItem {
     menuItems?: string[];
   };
 }
+
 function Sidebar() {
   const [menuData, setMenuData] = useState<IMenuItem>({});
 
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = async () => {
     const response = await getMenuData();
     const menuList: IMenuItem = {};
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    response?.data?.forEach((ele:any) => {
+    response?.data?.forEach((ele: any) => {
       if (menuList[ele?.menuGroupName]) {
         menuList[ele?.menuGroupName].menuItems?.push(ele?.menuItemName);
       } else {
@@ -28,6 +30,7 @@ function Sidebar() {
         };
       }
     });
+
     setMenuData(menuList);
   };
 

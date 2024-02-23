@@ -8,6 +8,7 @@ const config = {
     "Content-Type": "application/json",
   },
 };
+
 export const getDashboardNumber = async () => {
   const resp = await axios.get(`${base_url}/dashboard/dashboardNumber`, config);
   return resp;
@@ -17,10 +18,12 @@ export const getMenuData = async () => {
   const resp = await axios.get(`${base_url}/sidebarMenu/menuItems`, config);
   return resp;
 };
+
 export const getAllUsers = async () => {
   const resp = await axios.get(`${base_url}/user/userInfo/allUsers`, config);
   return resp;
 };
+
 export const getUserDetails = async (userId: number) => {
   const resp = await axios.get(`${base_url}/user/userInfo/${userId}`, config);
   return resp;

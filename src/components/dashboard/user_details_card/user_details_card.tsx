@@ -13,22 +13,14 @@ function UserDetailsCard({ OnIsAllUserClosed, userId }: IProps) {
   const [userDetails, setUserDetails] = useState<IUserData>({});
 
   useEffect(() => {
-    if (localStorage.getItem(userId.toString())) {
-      const data = JSON.parse(localStorage.getItem(userId.toString())!);
-      if (data) {
-        const obj = {
-          firstName: data.firstName,
-          middleName: data.middleName,
-          lastName: data.lastName,
-          salutation: data.salutation,
-          userId: userId,
-        };
-        setUserDetails(obj);
-      }
+    const data = localStorage.getItem(userId.toString());
+    if (data) {
+      const parsedData = JSON.parse(data);
+      setUserDetails(parsedData);
     } else {
       fetchData();
     }
-  }, []);
+  }, [userId]);
 
   const fetchData = async () => {
     const details = await getUserDetails(userId);

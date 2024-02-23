@@ -18,6 +18,7 @@ function UserDetailsTable() {
   const [isAllUserClosed, setIsAllUserClosed] = useState(false);
   const [allUserData, setAllUserData] = useState<IUserData[]>([]);
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -30,6 +31,7 @@ function UserDetailsTable() {
   const onRowClick = (ele: IUserData) => {
     setSelectedUserId(ele.userId!);
   };
+
   if (isAllUserClosed && selectedUserId !== null) {
     return (
       <div className={styles.userCard}>

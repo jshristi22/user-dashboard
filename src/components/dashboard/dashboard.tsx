@@ -12,12 +12,12 @@ function Dashboard() {
 
   const fetchData = async () => {
     const number = await getDashboardNumber();
-    setDashboardNumber(number.data.dashboardNumber);    
+    setDashboardNumber(number.data.dashboardNumber);
   };
 
   return (
     <div className={styles.dashboardContainer}>
-      <h1>{dashboardNumber ?? 0}</h1>
+      <h1>{dashboardNumber}</h1>
       <div className={styles.userDetailContainer}>
         <UserDetailsTable />
       </div>

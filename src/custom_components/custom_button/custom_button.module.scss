@@ -1,10 +1,13 @@
-.buttonDiv{
-    button{
-        background-color: rgb(39, 39, 126);
-        padding: 10px  14px;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
+.customButton {
+    background-color: rgb(39, 39, 126);
+    padding: 10px 14px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 40%;
+        pointer-events: none;
     }
 }
